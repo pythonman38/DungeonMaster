@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://d3d4i8qp4pjv"]
+[gd_scene load_steps=47 format=3 uid="uid://d3d4i8qp4pjv"]
 
 [ext_resource type="Texture2D" uid="uid://ctra6ysbutw5o" path="res://Assets/Sprites/Characters/Player/Running/Running_000.png" id="1_1fq6i"]
 [ext_resource type="Script" path="res://Scripts/Characters/Player/Player.cs" id="1_8hgqw"]
@@ -41,6 +41,10 @@
 [ext_resource type="Script" path="res://Scripts/Characters/Player/PlayerIdleState.cs" id="38_tdjb6"]
 [ext_resource type="Script" path="res://Scripts/Characters/Player/PlayerMoveState.cs" id="39_mqp7x"]
 [ext_resource type="Script" path="res://Scripts/Characters/Player/PlayerDashState.cs" id="41_fasts"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y0n0y"]
+radius = 0.471899
+height = 1.54308
 
 [sub_resource type="Animation" id="Animation_w1lx7"]
 resource_name = "Dash"
@@ -100,14 +104,25 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("AnimationPlayer", "PlayerSprite", "StateMachine")]
+collision_layer = 2
+floor_max_angle = 1.55334
+floor_snap_length = 0.2
 script = ExtResource("1_8hgqw")
 AnimationPlayer = NodePath("AnimationPlayer")
 PlayerSprite = NodePath("PlayerSprite")
 StateMachine = NodePath("StateMachine")
 
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 2, 6)
+
 [node name="PlayerSprite" type="Sprite3D" parent="."]
+pixel_size = 0.0025
 texture_filter = 0
-texture = ExtResource("1_8qhni")
+texture = ExtResource("1_oluob")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0598079, 0)
+shape = SubResource("CapsuleShape3D_y0n0y")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
