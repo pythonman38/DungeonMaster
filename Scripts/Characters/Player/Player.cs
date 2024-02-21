@@ -3,24 +3,11 @@ using Godot;
 public partial class Player : CharacterBody3D
 {
     [ExportGroup("Required Nodes")]
-    [Export] private AnimationPlayer animationPlayer;
-    [Export] private Sprite3D playerSprite;
+    [Export] public AnimationPlayer AnimationPlayer { get; private set; }
+    [Export] public Sprite3D PlayerSprite { get; private set; }
+    [Export] public StateMachine StateMachine { get; private set; }
 
-    private Vector2 direction = new();
-
-    public override void _Ready()
-    {
-        animationPlayer.Play(GameConstants.ANIM_IDLE);
-    }
-
-    public override void _PhysicsProcess(double delta)
-    {
-        SetPlayerSpeed();
-
-        MoveAndSlide();
-
-        Flip();
-    }
+    public Vector2 direction = new();
 
     public override void _Input(InputEvent @event)
     {
@@ -31,20 +18,11 @@ public partial class Player : CharacterBody3D
             GameConstants.INPUT_MOVE_FORWARD,
             GameConstants.INPUT_MOVE_BACKWARD
         );
-
-        if (direction == Vector2.Zero) animationPlayer.Play(GameConstants.ANIM_IDLE);
-        else animationPlayer.Play(GameConstants.ANIM_MOVE);
     }
 
-    private void SetPlayerSpeed()
-    {
-        Velocity = new(direction.X, 0, direction.Y);
-        Velocity *= 5;
-    }
-
-    private void Flip()
+    public void Flip()
     {
         if (Velocity.X == 0) return;
-        playerSprite.FlipH = Velocity.X < 0;
+        PlayerSprite.FlipH = Velocity.X < 0;
     }
 }
