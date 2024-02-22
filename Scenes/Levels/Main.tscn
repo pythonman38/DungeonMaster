@@ -1,13 +1,88 @@
-[gd_scene load_steps=4 format=3 uid="uid://dm7g8aeuirhfb"]
+[gd_scene load_steps=9 format=3 uid="uid://dm7g8aeuirhfb"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/Main.cs" id="1_kae80"]
 [ext_resource type="PackedScene" uid="uid://d3d4i8qp4pjv" path="res://Scenes/Characters/Player/Player.tscn" id="2_xa06c"]
 [ext_resource type="PackedScene" uid="uid://nutuasf1qgk7" path="res://Scenes/Levels/Environment.tscn" id="3_htxww"]
+[ext_resource type="PackedScene" uid="uid://ckw67qndxijas" path="res://Scenes/Characters/Enemy/Enemy.tscn" id="4_x8i4m"]
+
+[sub_resource type="Curve3D" id="Curve3D_qsr5g"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.111628, 0, -2.51976, 0, 0, 0, 0, 0, 0, 6.70654, 0, -2.77914, 0, 0, 0, 0, 0, 0, 8.09, -0.0893335, 2.47924, 0, 0, 0, 0, 0, 0, -0.99398, 0.0591841, 2.65017, 0, 0, 0, 0, 0, 0, -0.111628, 0, -2.51976),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_k5bb7"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -4.76406, 0, 0.630711, 0, 0, 0, 0, 0, 0, -0.504135, 0, -3.9569, 0, 0, 0, 0, 0, 0, 4.91529, 0, -4.23417, 0, 0, 0, 0, 0, 0, -2.47026, 0, 5.19312, 0, 0, 0, 0, 0, 0, -4.76406, 0, 0.630711),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_qipps"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -4.85192, 0, -3.38089, 0, 0, 0, 0, 0, 0, 5.79126, 0, -3.6749, 0, 0, 0, 0, 0, 0, 5.85006, 0, 4.93961, 0, 0, 0, 0, 0, 0, -4.79313, 0, 4.7632, 0, 0, 0, 0, 0, 0, -4.85192, 0, -3.38089),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="Curve3D" id="Curve3D_j3k5w"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -5.85895, -0.0343056, 1.09427, 0, 0, 0, 0, 0, 0, -1.62646, 0.15077, -4.8092, 0, 0, 0, 0, 0, 0, 5.54127, 0.145498, -2.72405, 0, 0, 0, 0, 0, 0, -3.02362, -0.220102, 8.94644, 0, 0, 0, 0, 0, 0, -5.85895, -0.0343056, 1.09427),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_kae80")
 
 [node name="Player" parent="." instance=ExtResource("2_xa06c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.78277, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.783, 0)
 
 [node name="Environment" parent="." instance=ExtResource("3_htxww")]
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="Path3D" type="Path3D" parent="Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.409, 1.25, 0)
+curve = SubResource("Curve3D_qsr5g")
+
+[node name="Enemy" parent="Enemies/Path3D" node_paths=PackedStringArray("PathNode") instance=ExtResource("4_x8i4m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.38956, 0.587631, 0)
+PathNode = NodePath("..")
+
+[node name="Path3D2" type="Path3D" parent="Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.379, 1.25, -23.064)
+curve = SubResource("Curve3D_k5bb7")
+
+[node name="Path3D3" type="Path3D" parent="Enemies"]
+transform = Transform3D(-0.456166, 0, -0.889895, 0, 1, 0, 0.889895, 0, -0.456166, 68.8436, 1.25, -22.6818)
+curve = SubResource("Curve3D_k5bb7")
+
+[node name="Path3D4" type="Path3D" parent="Enemies"]
+transform = Transform3D(-0.888737, 0, 0.458417, 0, 1, 0, -0.458417, 0, -0.888737, 68.0204, 1.25, -8.01066)
+curve = SubResource("Curve3D_k5bb7")
+
+[node name="Path3D5" type="Path3D" parent="Enemies"]
+transform = Transform3D(0.0193196, 0, 0.999813, 0, 1, 0, -0.999813, 0, 0.0193196, 51.5558, 1.25, -8.01066)
+curve = SubResource("Curve3D_k5bb7")
+
+[node name="Path3D6" type="Path3D" parent="Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.714, 1.25, -16.435)
+curve = SubResource("Curve3D_qipps")
+
+[node name="Path3D7" type="Path3D" parent="Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.584, 5.25, -42.338)
+curve = SubResource("Curve3D_j3k5w")
+
+[node name="Path3D8" type="Path3D" parent="Enemies"]
+transform = Transform3D(-0.265758, 0, -0.96404, 0, 1, 0, 0.96404, 0, -0.265758, 31.4585, 5.23561, -41.0974)
+curve = SubResource("Curve3D_j3k5w")
+
+[node name="Path3D9" type="Path3D" parent="Enemies"]
+transform = Transform3D(-0.953264, 0, 0.302137, 0, 1, 0, -0.302137, 0, -0.953264, 30.4754, 5.23561, -23.604)
+curve = SubResource("Curve3D_j3k5w")
+
+[node name="Path3D10" type="Path3D" parent="Enemies"]
+transform = Transform3D(0.326674, 0, 0.945137, 0, 1, 0, -0.945137, 0, 0.326674, 11.8225, 5.23561, -25.8091)
+curve = SubResource("Curve3D_j3k5w")

@@ -37,7 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://5rc7cprnty8x" path="res://Assets/Sprites/Characters/Player/Sliding/Sliding_003.png" id="34_7oogw"]
 [ext_resource type="Texture2D" uid="uid://cm6x05lfsf3o4" path="res://Assets/Sprites/Characters/Player/Sliding/Sliding_004.png" id="35_ybcwg"]
 [ext_resource type="Texture2D" uid="uid://bo1xui36twg5q" path="res://Assets/Sprites/Characters/Player/Sliding/Sliding_005.png" id="36_6ptju"]
-[ext_resource type="Script" path="res://Scripts/Characters/StateMachine.cs" id="38_2jp4r"]
+[ext_resource type="PackedScene" uid="uid://dpcx8xp0anwlc" path="res://Scenes/Characters/StateMachine.tscn" id="38_1c6yr"]
 [ext_resource type="Script" path="res://Scripts/Characters/Player/PlayerIdleState.cs" id="38_tdjb6"]
 [ext_resource type="Script" path="res://Scripts/Characters/Player/PlayerMoveState.cs" id="39_mqp7x"]
 [ext_resource type="Script" path="res://Scripts/Characters/Player/PlayerDashState.cs" id="41_fasts"]
@@ -103,13 +103,14 @@ _data = {
 "Move": SubResource("Animation_pxr7e")
 }
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("AnimationPlayer", "PlayerSprite", "StateMachine")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("AnimationPlayer", "CharacterSprite", "StateMachine")]
 collision_layer = 2
+collision_mask = 5
 floor_max_angle = 1.55334
 floor_snap_length = 0.2
 script = ExtResource("1_8hgqw")
 AnimationPlayer = NodePath("AnimationPlayer")
-PlayerSprite = NodePath("PlayerSprite")
+CharacterSprite = NodePath("PlayerSprite")
 StateMachine = NodePath("StateMachine")
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -129,8 +130,7 @@ libraries = {
 "": SubResource("AnimationLibrary_egl7m")
 }
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("currentState", "states")]
-script = ExtResource("38_2jp4r")
+[node name="StateMachine" parent="." node_paths=PackedStringArray("currentState", "states") instance=ExtResource("38_1c6yr")]
 currentState = NodePath("IdleState")
 states = [NodePath("IdleState"), NodePath("MoveState"), NodePath("DashState")]
 
@@ -146,4 +146,3 @@ dashTimer = NodePath("DashTimer")
 
 [node name="DashTimer" type="Timer" parent="StateMachine/DashState"]
 wait_time = 0.4
-one_shot = true
