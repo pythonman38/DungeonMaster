@@ -1,5 +1,3 @@
-using Godot;
-
 public partial class EnemyIdleState : EnemyState
 {
     protected override void EnterState()
